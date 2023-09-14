@@ -17,28 +17,24 @@ public class ResponseServlet extends HttpServlet {
     }
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		System.out.println("service 메서드가 호출됨!");
 		
-		// 요청과 함께 넘어온 아이디를 얻자
-		// 파라미터 변수명 제대로 입력 안하면 null이 옵니다.
+		//요청과 함께 넘어온 아이디를 얻자
+		//파라미터 변수명 제대로 입력 안하면 null이 옵니다.
 		int age = Integer.parseInt(request.getParameter("customerAge"));
 		
 		if(age >= 20) {
-			// 성인 페이지로 이동시키고 싶어요.
+			//성인 페이지로 이동시키고 싶어요.
 			response.sendRedirect("/JspBasic/response/res_adult.jsp");
 		} else {
-			// 미성년자 페이지로 이동시키고 싶어요.
+			//미성년자 페이지로 이동시키고 싶어요.
 			response.sendRedirect("/JspBasic/response/res_underage.jsp");
 		}
-	
+		
 	}
 
 }
-
-
-
-
 
 
 

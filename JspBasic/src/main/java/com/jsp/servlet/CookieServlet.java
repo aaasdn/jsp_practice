@@ -3,45 +3,64 @@ package com.jsp.servlet;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// 서블릿 맵핑 url 패턴 종류
-
-//1. 디렉토리 패턴: 디렉토리 형태로 서버의 해당 컴포넌트를 찾아서 실행하는 구조
-//-> 정해진 url로만 서블릿에 요청을 보낼 수가 있습니다.
-
-//2. 확장자 패턴: 확장자 형태로 서버의 해당 컴포넌트를 찾아서 실행하는 구조
-//*.board -> 앞에 어떠한 경로가 존재하던지 .board 요청으로만 끝나면 해당 서블릿이 반응하겠다.
-@WebServlet("*.user")
+@WebServlet("/cookie/login")
 public class CookieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
     public CookieServlet() {
         super();
     }
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("요청 URI: " + request.getRequestURI());
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
 		
-		String uri = request.getRequestURI();
-		String conPath = request.getContextPath(); // -> /JspBasic (컨텍스트 루트)
-		
-		// /JspBasic/join.user
-		uri = uri.substring(conPath.length() + 1, uri.lastIndexOf("."));
-		System.out.println("정제된 uri: " + uri);
-		
-		
-		if(uri.equals("join")) {
-			System.out.println("회원 가입 요청이 들어왔구나!");
-		} else if(uri.equals("login")) {
+		if(id.equals("kim1234") && pw.equals("kkk1111!")) {
 			
+			//# 쿠키 생성 방법
+			//1. 쿠키 객체를 생성 - 생성자의 매개값으로 쿠키의 이름과 저장할 데이터 입력(String)
+			Cookie loginCoo = new Cookie("login_cookie", id);
+			
+			//2. 쿠키 클래스의 setter 메서드로 쿠키의 속성을 설정.
+			loginCoo.setMaxAge(5); //쿠키의 유효 시간 설정(초) 1시간 -> 60 * 60
+			
+			//3. http 응답 시 response 객체에 생성된 쿠키를 탑재해서 클라이언트에게 전송.
+			response.addCookie(loginCoo);
+			
+			// 사용자가 아이디 기억하기 체크박스를 체크했는지의 여부 확인.
+			if(request.getParameter("rememberId") != null) { //체크를 했다면 null이 아님.
+				Cookie idMemory = new Cookie("remember_id", id);
+				idMemory.setMaxAge(30);
+				response.addCookie(idMemory);
+			}
+			
+			
+			response.sendRedirect("/JspBasic/cookie/cookie_welcome.jsp");
+			
+		} else {
+			response.sendRedirect("/JspBasic/cookie/cookie_login.jsp");
 		}
 		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+

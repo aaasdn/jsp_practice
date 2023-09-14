@@ -11,9 +11,8 @@
 	<form action="jstl_choose.jsp">
 		# 이름: <input type="text" name="name"> <br>
 		# 나이: <input type="text" name="age"> <br>
-		<input type="submit" vlaue="확인">
+		<input type="submit" value="확인">
 	</form>
-
 
 </body>
 </html>

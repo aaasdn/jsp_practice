@@ -9,13 +9,28 @@
 <body>
 
 	<form action="/JspBasic/el/obj">
-		# 아아디: <input type="text" name="id"> <br>
+		# 아이디: <input type="text" name="id"> <br>
 		# 비밀번호: <input type="password" name="pw"> <br>
 		# 이름: <input type="text" name="name"> <br>
-		# 이메일: <input type="text" name="eamil"> <br>
+		# 이메일: <input type="text" name="email"> <br>
 		<input type="submit" value="확인">
 	</form>
 
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
